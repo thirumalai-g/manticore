@@ -42,6 +42,7 @@ module Manticore
     # Implementation of Callable#call
     # Used by Manticore::Client to invoke the request tied to this response.
     def call
+      puts "At Github Manticore Client"
       return background! if @background
       raise "Already called" if @called
       @called = true
