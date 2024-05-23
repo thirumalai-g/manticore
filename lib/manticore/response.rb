@@ -49,6 +49,7 @@ module Manticore
       begin
         @client.client.execute @request, self, @context
       rescue Java::JavaNet::SocketTimeoutException => e
+        puts "Manticore Socket Timeout Error for Client Protocol Exception: #{e.message}"
         ex = Manticore::SocketTimeout
       rescue Java::OrgApacheHttpConn::ConnectTimeoutException => e
         ex = Manticore::ConnectTimeout
@@ -57,7 +58,7 @@ module Manticore
       rescue Java::OrgApacheHttpClient::ClientProtocolException, Java::JavaxNetSsl::SSLHandshakeException,
              Java::OrgApacheHttpConn::HttpHostConnectException, Java::OrgApacheHttp::NoHttpResponseException,
              Java::OrgApacheHttp::ConnectionClosedException => e
-        puts "Manticore Error for Client Protocol Exception: #{e}"
+        puts "Manticore Error for Client Protocol Exception: #{e.message}"
         ex = Manticore::ClientProtocolException
       rescue Java::JavaNet::UnknownHostException => e
         ex = Manticore::ResolutionFailure
