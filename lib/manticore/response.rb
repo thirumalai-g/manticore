@@ -58,7 +58,8 @@ module Manticore
       rescue Java::OrgApacheHttpClient::ClientProtocolException, Java::JavaxNetSsl::SSLHandshakeException,
              Java::OrgApacheHttpConn::HttpHostConnectException, Java::OrgApacheHttp::NoHttpResponseException,
              Java::OrgApacheHttp::ConnectionClosedException => e
-        puts "Manticore Error for Client Protocol Exception: #{e.message}"
+        puts "Manticore Error for Client Protocol Exception: #{e.full_message}"
+        puts "Manticore Backtrace for Client Protocol Exception: #{e.backtrace.join("\n")}"
         ex = Manticore::ClientProtocolException
       rescue Java::JavaNet::UnknownHostException => e
         ex = Manticore::ResolutionFailure
