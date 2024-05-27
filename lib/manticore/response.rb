@@ -49,7 +49,8 @@ module Manticore
       begin
         @client.client.execute @request, self, @context
       rescue Java::JavaNet::SocketTimeoutException => e
-        puts "Manticore Socket Timeout Error for Client Protocol Exception: #{e.message}"
+        puts "Manticore Socket Timeout Error for Client Protocol Exception: #{e.full_message}"
+        puts "Manticore Backtrace for Socket Timeout Exception: #{e.backtrace.join("\n")}"
         ex = Manticore::SocketTimeout
       rescue Java::OrgApacheHttpConn::ConnectTimeoutException => e
         ex = Manticore::ConnectTimeout
